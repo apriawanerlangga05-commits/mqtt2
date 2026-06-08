@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-title: "Orbitron", "SF Pro Display", sans-serif;
+  --font-sans: "Rajdhani", system-ui, sans-serif;
+  --color-cyan-glow: #00c9ff;
+  --color-cyan-glow-dim: rgba(0, 201, 255, 0.15);
+  --color-cyan-glow-bright: rgba(0, 201, 255, 0.6);
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 8px rgba(0, 201, 255, 0.6), 0 0 20px rgba(0, 201, 255, 0.3);
+  }
+  
+  .box-glow {
+    box-shadow: 0 0 15px rgba(0, 201, 255, 0.25), inset 0 0 15px rgba(0, 201, 255, 0.1);
+  }
+
+  .box-glow-danger {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4), inset 0 0 15px rgba(239, 68, 68, 0.15);
+  }
+
+  .box-glow-active {
+    box-shadow: 0 0 20px rgba(0, 201, 255, 0.5), inset 0 0 10px rgba(0, 201, 255, 0.2);
+  }
+
+  /* Custom Scrollbar for modern sci-fi dashboard theme */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #090d16;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #00c9ff;
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0099cc;
+  }
+}
+
+@keyframes voicePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 201, 255, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(0, 201, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 201, 255, 0);
+  }
+}
+
+.voice-active-pulse {
+  animation: voicePulse 1.5s infinite;
+}
+
+@keyframes borderGlowPulse {
+  0%, 100% {
+    border-color: rgba(0, 201, 255, 0.2);
+  }
+  50% {
+    border-color: rgba(0, 201, 255, 0.8);
+  }
+}
+
+.border-pulse {
+  animation: borderGlowPulse 2s infinite ease-in-out;
+}
+
+@keyframes dangerFlash {
+  0%, 100% {
+    background-color: rgba(239, 68, 68, 0);
+    border-color: rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 1);
+  }
+}
+
+.danger-flash-active {
+  animation: dangerFlash 1s infinite ease-in-out;
+}
+
+@keyframes sensorPing {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.sensor-ping-dot {
+  position: relative;
+}
+.sensor-ping-dot::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #00c9ff;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  animation: sensorPing 1s ease-out;
+}
