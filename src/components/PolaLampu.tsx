@@ -41,13 +41,13 @@ export const PolaLampu: React.FC<PolaLampuProps> = ({
     };
   }, [polaState.pola1]);
 
-  // Pola 2: Rapid blinking/strobe state synchronization
+  // Pola 2: Alternating blinking (odd & even dots alternately)
   useEffect(() => {
     let intervalId: any = null;
     if (polaState.pola2) {
       intervalId = setInterval(() => {
         setStrobeState((prev) => !prev);
-      }, 100); // strobe speed
+      }, 300); // alternating speed
     } else {
       setStrobeState(false);
     }
@@ -122,7 +122,7 @@ export const PolaLampu: React.FC<PolaLampuProps> = ({
           <div className="flex justify-between items-start mb-2">
             <div>
               <h3 className="text-xs font-title font-bold text-gray-300 uppercase tracking-wide">Pola 2</h3>
-              <p className="text-[11px] text-gray-400 mt-0.5">Animasi strobe berkedip serentak dengan frekuensi tinggi.</p>
+              <p className="text-[11px] text-gray-400 mt-0.5">Animasi selang-seling — dot genap & ganjil bergantian.</p>
             </div>
             <span className={`px-2 py-0.5 rounded text-[9px] font-bold ${polaState.pola2 ? 'bg-[#00c9ff]/15 text-[#00c9ff]' : 'bg-gray-800 text-gray-500'}`}>
               {polaState.pola2 ? 'RUNNING' : 'STOPPED'}
@@ -164,7 +164,8 @@ export const PolaLampu: React.FC<PolaLampuProps> = ({
             if (polaState.pola1) {
               isLedOn = ledSequenceIndex === index;
             } else if (polaState.pola2) {
-              isLedOn = strobeState;
+              // Alternating blink: if strobeState is true, active odd indices (LED 1 & 3), else active even indices (LED 2 & 4)
+              isLedOn = (index % 2 === 0) ? strobeState : !strobeState;
             }
 
             return (
